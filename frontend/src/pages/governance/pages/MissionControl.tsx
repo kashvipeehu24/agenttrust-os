@@ -55,7 +55,10 @@ const MissionControl: React.FC = () => {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <LoanMonitor />
-        <RiskMeter value={72} />
+        <RiskMeter
+          value={28}
+          label="Overall Risk"
+        />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
