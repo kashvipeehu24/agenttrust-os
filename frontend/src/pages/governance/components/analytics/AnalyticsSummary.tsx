@@ -11,27 +11,45 @@ export default function AnalyticsSummary({
   policyViolations,
   securityScore,
 }: Props) {
+  const cards = [
+    {
+      title: "Fraud Rate",
+      value: `${fraudRate}%`,
+      color: "text-red-600",
+    },
+    {
+      title: "Active Alerts",
+      value: alerts,
+      color: "text-orange-600",
+    },
+    {
+      title: "Policy Violations",
+      value: policyViolations,
+      color: "text-yellow-600",
+    },
+    {
+      title: "Security Score",
+      value: `${securityScore}%`,
+      color: "text-green-600",
+    },
+  ];
+
   return (
-    <div className="grid grid-cols-2 gap-4">
-      <div className="rounded-xl border bg-white p-4">
-        <h4 className="text-sm text-gray-500">Fraud Rate</h4>
-        <p className="text-2xl font-bold">{fraudRate}%</p>
-      </div>
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {cards.map((card) => (
+        <div
+          key={card.title}
+          className="rounded-xl border bg-white p-5 shadow-sm transition hover:shadow-md"
+        >
+          <p className="text-sm text-gray-500">
+            {card.title}
+          </p>
 
-      <div className="rounded-xl border bg-white p-4">
-        <h4 className="text-sm text-gray-500">Alerts</h4>
-        <p className="text-2xl font-bold">{alerts}</p>
-      </div>
-
-      <div className="rounded-xl border bg-white p-4">
-        <h4 className="text-sm text-gray-500">Policy Violations</h4>
-        <p className="text-2xl font-bold">{policyViolations}</p>
-      </div>
-
-      <div className="rounded-xl border bg-white p-4">
-        <h4 className="text-sm text-gray-500">Security Score</h4>
-        <p className="text-2xl font-bold">{securityScore}%</p>
-      </div>
+          <p className={`mt-3 text-3xl font-bold ${card.color}`}>
+            {card.value}
+          </p>
+        </div>
+      ))}
     </div>
   );
 }

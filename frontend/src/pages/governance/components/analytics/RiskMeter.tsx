@@ -1,49 +1,43 @@
-import React from "react";
-
-interface RiskMeterProps {
+interface Props {
   value: number;
-  max?: number;
-  label?: string;
+  label: string;
 }
 
-const RiskMeter: React.FC<RiskMeterProps> = ({
-  value,
-  max = 100,
-  label = "Risk Score",
-}) => {
-  const percentage = Math.min((value / max) * 100, 100);
-
+export default function RiskMeter({ value, label }: Props) {
   const color =
-    percentage < 40
+    value < 30
       ? "bg-green-500"
-      : percentage < 70
+      : value < 60
       ? "bg-yellow-500"
+      : value < 80
+      ? "bg-orange-500"
       : "bg-red-500";
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
-      <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-slate-900">
+    <div className="rounded-xl border bg-white p-5 shadow-sm transition hover:shadow-md">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold">
           {label}
         </h3>
 
-        <span className="text-sm font-medium text-slate-600">
-          {value}/{max}
+        <span className="text-2xl font-bold">
+          {value}%
         </span>
       </div>
 
-      <div className="h-4 w-full rounded-full bg-gray-200">
+      <div className="mt-5 h-3 w-full rounded-full bg-gray-200">
         <div
-          className={`h-4 rounded-full transition-all duration-500 ${color}`}
-          style={{ width: `${percentage}%` }}
+          className={`h-3 rounded-full ${color}`}
+          style={{ width: `${value}%` }}
         />
       </div>
 
-      <p className="mt-3 text-sm text-slate-500">
-        Current Risk Level: {percentage.toFixed(0)}%
-      </p>
+      <div className="mt-3 flex justify-between text-xs text-gray-500">
+        <span>Low</span>
+        <span>Medium</span>
+        <span>High</span>
+        <span>Critical</span>
+      </div>
     </div>
   );
-};
-
-export default RiskMeter;
+}
