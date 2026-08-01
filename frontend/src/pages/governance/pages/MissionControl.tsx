@@ -8,6 +8,14 @@ import AgentStatusCard from "../components/mission/AgentStatusCard";
 import WalletStatusCard from "../components/mission/WalletStatusCard";
 import LiveIndicator from "../components/mission/LiveIndicator";
 
+import LoanMonitor from "../components/monitoring/LoanMonitor";
+import MonitoringCard from "../components/monitoring/MonitoringCard";
+
+import RiskMeter from "../components/analytics/RiskMeter";
+import SecurityHealthCard from "../components/analytics/SecurityHealthCard";
+
+import KillSwitchButton from "../components/security/KillSwitchButton";
+
 const MissionControl: React.FC = () => {
   return (
     <div className="space-y-8 p-6">
@@ -44,6 +52,26 @@ const MissionControl: React.FC = () => {
       </div>
 
       <WalletStatusCard />
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <LoanMonitor />
+        <RiskMeter value={72} />
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <MonitoringCard
+          title="Live Transactions"
+          value={28}
+        />
+
+        <MonitoringCard
+          title="Wallet Activity"
+          value="18 Active"
+        />
+      </div>
+
+      <SecurityHealthCard score={94} />
+      <KillSwitchButton />
     </div>
   );
 };
