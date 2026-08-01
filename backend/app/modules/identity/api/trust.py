@@ -2,35 +2,42 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from app.modules.identity.services.agent_service import AgentService
+from app.modules.identity.schemas.trust_score import (
+    TrustScoreCalculateSchema,
+    TrustScoreResponseSchema,
+    TrustScoreRecalculateSchema,
+)
+from app.modules.identity.services.trust_score_service import TrustScoreService
+from app.modules.identity.models.trust_score import TrustScore
 
 
 router = APIRouter(prefix="/trust", tags=["identity-trust"])
 
 
-def get_agent_service() -> AgentService:
-    raise NotImplementedError("Provide AgentService dependency")
+def get_trust_score_service() -> TrustScoreService:
+    raise NotImplementedError("Provide TrustScoreService dependency")
 
 
-@router.get("/{agent_id}/score")
-async def get_trust_score(agent_id: str, service: AgentService = Depends(get_agent_service)) -> dict[str, str]:
-    agent = await service.get_agent_by_id(agent_id)
-    if not agent:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Agent not found")
-    return {"trust_score": "not implemented"}
+@router.post("/calculate", response_model=TrustScoreResponseSchema)
+async def calculate_trust(
+    payload: TrustScoreCalculateSchema, service: TrustScoreService = Depends(get_trust_score_service)
+) -> TrustScore:
+    score = await service.calculate_score(payload.agent_id, inputs=payload.inputs)
+    return score
 
 
-@router.get("/{agent_id}/timeline")
-async def get_reputation_timeline(agent_id: str, service: AgentService = Depends(get_agent_service)) -> dict[str, str]:
-    agent = await service.get_agent_by_id(agent_id)
-    if not agent:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Agent not found")
-    return {"timeline": "not implemented"}
+@router.get("/{agent_id}", response_model=TrustScoreResponseSchema)
+async def get_trust(agent_id: str, service: TrustScoreService = Depends(get_trust_score_service)) -> TrustScore:
+    score = await service.get_score_by_agent(agent_id)
+    if not score:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Trust score not found")
+    return score
 
 
-@router.get("/{agent_id}/explain")
-async def explain_trust_score(agent_id: str, service: AgentService = Depends(get_agent_service)) -> dict[str, str]:
-    agent = await service.get_agent_by_id(agent_id)
-    if not agent:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Agent not found")
-    return {"explanation": "not implemented"}
+@router.patch("/recalculate", response_model=TrustScoreResponseSchema)
+async def recalculate_trust(
+    payload: TrustScoreRecalculateSchema, service: TrustScoreService = Depends(get_trust_score_service)
+) -> TrustScore:
+    score = await service.recalculate_score(payload.agent_id)
+    return score
+
