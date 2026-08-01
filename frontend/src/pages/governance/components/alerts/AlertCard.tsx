@@ -4,24 +4,56 @@ interface Props {
   alert: Alert;
 }
 
+const severityStyles = {
+  Low: "bg-green-100 text-green-700",
+  Medium: "bg-yellow-100 text-yellow-700",
+  High: "bg-orange-100 text-orange-700",
+  Critical: "bg-red-100 text-red-700",
+};
+
+const statusStyles = {
+  Open: "bg-red-100 text-red-700",
+  Resolved: "bg-green-100 text-green-700",
+};
+
 export default function AlertCard({ alert }: Props) {
   return (
-    <div className="rounded-xl border border-red-200 bg-white p-4 shadow">
-      <div className="flex items-center justify-between">
-        <h3 className="font-semibold">{alert.title}</h3>
+    <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow-md">
+      <div className="flex items-start justify-between">
+        <div>
+          <h3 className="text-lg font-semibold text-gray-900">
+            {alert.title}
+          </h3>
 
-        <span className="rounded-full bg-red-100 px-2 py-1 text-xs text-red-700">
+          <p className="mt-2 text-sm text-gray-600">
+            {alert.description}
+          </p>
+        </div>
+
+        <span
+          className={`rounded-full px-3 py-1 text-xs font-semibold ${
+            severityStyles[alert.severity]
+          }`}
+        >
           {alert.severity}
         </span>
       </div>
 
-      <p className="mt-2 text-sm text-gray-600">
-        {alert.description}
-      </p>
+      <div className="my-4 border-t" />
 
-      <p className="mt-3 text-xs text-gray-400">
-        {alert.timestamp}
-      </p>
+      <div className="flex items-center justify-between">
+        <span
+          className={`rounded-full px-3 py-1 text-xs font-medium ${
+            statusStyles[alert.status]
+          }`}
+        >
+          {alert.status}
+        </span>
+
+        <span className="text-xs text-gray-500">
+          {alert.timestamp}
+        </span>
+      </div>
     </div>
   );
 }
