@@ -4,8 +4,8 @@ interface Props {
 
 export default function RestrictionBadge({ label }: Props) {
   return (
-    <span className="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700">
-      {label}
+    <span className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
+      🔒 {label}
     </span>
   );
 }
