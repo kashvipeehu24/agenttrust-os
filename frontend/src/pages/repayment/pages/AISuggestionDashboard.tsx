@@ -1,5 +1,6 @@
 import AISuggestionCard from "../components/AISuggestionCard";
 import { useAISuggestion } from "../hooks/useAISuggestion";
+import { LoadingSkeleton, ErrorState, EmptyState } from "../../../components/common/FeedbackStates";
 
 export default function AISuggestionDashboard() {
   const walletId = "wallet_001";
@@ -9,28 +10,26 @@ export default function AISuggestionDashboard() {
     suggestions,
     loading,
     error,
+    refreshSuggestions,
   } = useAISuggestion(walletId);
 
-  if (loading)
-    return (
-      <div className="p-6">
-        Loading AI Suggestions...
-      </div>
-    );
+  if (loading) {
+    return <LoadingSkeleton />;
+  }
 
-  if (error)
+  if (error) {
     return (
-      <div className="rounded-lg bg-red-50 p-6 text-red-600">
-        {error}
-      </div>
+      <ErrorState
+        message={error}
+        details="Axios client failed to fetch /ai-suggestions/{walletId}/summary and /ai-suggestions/{walletId}"
+        onRetry={refreshSuggestions}
+      />
     );
+  }
 
-  if (!summary)
-    return (
-      <div className="p-6">
-        No suggestions available.
-      </div>
-    );
+  if (!summary) {
+    return <EmptyState title="No AI Suggestions" description="No automation recommendations or liquidity advice could be fetched." />;
+  }
 
   return (
     <AISuggestionCard

@@ -30,7 +30,7 @@ async def register_agent(
     return {"message": "agent registered"}
 
 
-@router.get("/{agent_id}", response_model=Agent)
+@router.get("/{agent_id}", response_model=None)
 async def get_agent(agent_id: str, service: AgentService = Depends(get_agent_service)) -> Agent:
     agent = await service.get_agent_by_id(agent_id)
     if not agent:
@@ -38,6 +38,6 @@ async def get_agent(agent_id: str, service: AgentService = Depends(get_agent_ser
     return agent
 
 
-@router.get("/", response_model=list[Agent])
+@router.get("/", response_model=None)
 async def list_agents(service: AgentService = Depends(get_agent_service)) -> list[Agent]:
     return await service.list_agents()

@@ -1,5 +1,6 @@
 import RepaymentTimeline from "../components/RepaymentTimeline";
 import { useRepayment } from "../hooks/useRepayment";
+import { LoadingSkeleton, ErrorState, EmptyState } from "../../../components/common/FeedbackStates";
 
 export default function RepaymentDashboard() {
   // Replace with the actual wallet ID after backend integration
@@ -10,30 +11,25 @@ export default function RepaymentDashboard() {
     schedule,
     loading,
     error,
+    refreshRepayment,
   } = useRepayment(walletId);
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center p-10">
-        Loading repayment data...
-      </div>
-    );
+    return <LoadingSkeleton />;
   }
 
   if (error) {
     return (
-      <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-700">
-        {error}
-      </div>
+      <ErrorState
+        message={error}
+        details="Axios client failed to fetch /repayments/{walletId}/summary and /repayments/{walletId}/schedule"
+        onRetry={refreshRepayment}
+      />
     );
   }
 
   if (!summary) {
-    return (
-      <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
-        No repayment information available.
-      </div>
-    );
+    return <EmptyState title="No Repayment Data" description="No active repayment records or payment schedules were found for this wallet." />;
   }
 
   return (

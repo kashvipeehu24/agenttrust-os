@@ -30,7 +30,7 @@ async def create_event(
         previous_score=payload.previous_score,
         new_score=payload.new_score,
         event_source=payload.event_source,
-        metadata=payload.metadata,
+        extra_metadata=payload.metadata,
     )
     created = await service.create_event(event)
     return created

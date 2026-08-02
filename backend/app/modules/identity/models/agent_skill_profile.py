@@ -25,9 +25,15 @@ class AgentSkillProfile(Base):
     confidence_score: Mapped[float] = mapped_column(Float, nullable=False)
     certified: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     last_assessed_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
-    metadata: Mapped[dict] = mapped_column(JSON, nullable=True)
+    skill_metadata: Mapped[dict] = mapped_column("metadata", JSON, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     def __repr__(self) -> str:  # pragma: no cover - trivial
         return f"<AgentSkillProfile id={self.id} agent_id={self.agent_id} skill={self.skill_name!r}>"
+
+# Attach metadata property dynamically after SQLAlchemy mapping setup
+AgentSkillProfile.metadata = property(
+    fget=lambda self: self.skill_metadata,
+    fset=lambda self, val: setattr(self, "skill_metadata", val)
+)

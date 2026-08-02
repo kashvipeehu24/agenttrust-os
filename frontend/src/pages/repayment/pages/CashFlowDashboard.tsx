@@ -1,5 +1,6 @@
 import CashFlowChart from "../components/CashFlowChart";
 import { useCashFlow } from "../hooks/useCashFlow";
+import { LoadingSkeleton, ErrorState, EmptyState } from "../../../components/common/FeedbackStates";
 
 export default function CashFlowDashboard() {
   // Replace with authenticated user's wallet ID later
@@ -10,30 +11,25 @@ export default function CashFlowDashboard() {
     history,
     loading,
     error,
+    refreshCashFlow,
   } = useCashFlow(walletId);
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center p-8">
-        Loading cash flow...
-      </div>
-    );
+    return <LoadingSkeleton />;
   }
 
   if (error) {
     return (
-      <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-700">
-        {error}
-      </div>
+      <ErrorState
+        message={error}
+        details="Axios client failed to fetch /cashflow/{walletId}/summary and /cashflow/{walletId}/history"
+        onRetry={refreshCashFlow}
+      />
     );
   }
 
   if (!summary) {
-    return (
-      <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
-        No cash flow data available.
-      </div>
-    );
+    return <EmptyState title="No Cash Flow Records" description="No cash flow summaries or historical data points were found." />;
   }
 
   return (

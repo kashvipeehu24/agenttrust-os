@@ -1,15 +1,8 @@
-import axios from "axios";
+import api from "../../../services/api";
 import type {
   RepaymentSummary,
   RepaymentScheduleItem,
 } from "../types/repayment";
-
-const api = axios.create({
-  baseURL: "http://localhost:8000",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
 
 export const repaymentApi = {
   getRepaymentSummary: (walletId: string) =>

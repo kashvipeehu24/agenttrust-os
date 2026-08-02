@@ -19,28 +19,31 @@ export function useAISuggestion(walletId: string) {
   const [error, setError] =
     useState("");
 
+  const fetchSuggestions = async () => {
+    try {
+      setLoading(true);
+
+      const summaryRes =
+        await aiSuggestionApi.getSummary(walletId);
+
+      const suggestionsRes =
+        await aiSuggestionApi.getSuggestions(walletId);
+
+      setSummary(summaryRes.data);
+      setSuggestions(suggestionsRes.data);
+      setError("");
+    } catch (err) {
+      console.error(err);
+      setError("Failed to load AI suggestions.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchSuggestions = async () => {
-      try {
-        setLoading(true);
-
-        const summaryRes =
-          await aiSuggestionApi.getSummary(walletId);
-
-        const suggestionsRes =
-          await aiSuggestionApi.getSuggestions(walletId);
-
-        setSummary(summaryRes.data);
-        setSuggestions(suggestionsRes.data);
-      } catch (err) {
-        console.error(err);
-        setError("Failed to load AI suggestions.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchSuggestions();
+    if (walletId) {
+      fetchSuggestions();
+    }
   }, [walletId]);
 
   return {
@@ -48,5 +51,6 @@ export function useAISuggestion(walletId: string) {
     suggestions,
     loading,
     error,
+    refreshSuggestions: fetchSuggestions,
   };
 }

@@ -2,14 +2,15 @@ from __future__ import annotations
 
 from datetime import date, datetime
 from decimal import Decimal
+from enum import Enum as PyEnum
 
-from sqlalchemy import Column, Date, DateTime, Enum, ForeignKey, Numeric, String
+from sqlalchemy import Column, Date, DateTime, Enum as SQLEnum, ForeignKey, Numeric, String
 from sqlalchemy.orm import relationship
 
 from .base import Base
 
 
-class RepaymentStatus(str, Enum):
+class RepaymentStatus(str, PyEnum):
     pending = "pending"
     processing = "processing"
     completed = "completed"
@@ -17,14 +18,14 @@ class RepaymentStatus(str, Enum):
     overdue = "overdue"
 
 
-class RepaymentType(str, Enum):
+class RepaymentType(str, PyEnum):
     automatic = "automatic"
     partial = "partial"
     milestone = "milestone"
     manual = "manual"
 
 
-class PaymentMode(str, Enum):
+class PaymentMode(str, PyEnum):
     wallet = "wallet"
     escrow = "escrow"
     direct = "direct"
@@ -44,12 +45,13 @@ class Repayment(Base):
     due_date = Column(Date, nullable=False)
     next_payment = Column(Numeric(precision=18, scale=2), default=Decimal("0.00"), nullable=False)
     monthly_payment = Column(Numeric(precision=18, scale=2), default=Decimal("0.00"), nullable=False)
-    payment_status = Column(Enum(RepaymentStatus), default=RepaymentStatus.pending, nullable=False)
-    payment_mode = Column(Enum(PaymentMode), default=PaymentMode.wallet, nullable=False)
-    payment_type = Column(Enum(RepaymentType), default=RepaymentType.automatic, nullable=False)
+    payment_status = Column(SQLEnum(RepaymentStatus), default=RepaymentStatus.pending, nullable=False)
+    payment_mode = Column(SQLEnum(PaymentMode), default=PaymentMode.wallet, nullable=False)
+    payment_type = Column(SQLEnum(RepaymentType), default=RepaymentType.automatic, nullable=False)
     revenue_stream = Column(Numeric(precision=18, scale=2), default=Decimal("0.00"), nullable=False)
     revenue_delay_days = Column(Numeric(precision=10, scale=0), default=0, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
 
     wallet = relationship("Wallet", back_populates="repayments")
+

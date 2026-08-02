@@ -133,9 +133,74 @@ class RepaymentStatusResponse(BaseModel):
     repayment_type: RepaymentType
 
 
-REPAYMENT_STORE: Dict[str, Dict[str, Any]] = {}
-TRANSACTION_STORE: Dict[str, List[Dict[str, Any]]] = {}
-MILESTONE_STORE: Dict[str, List[Dict[str, Any]]] = {}
+REPAYMENT_STORE: Dict[str, Dict[str, Any]] = {
+    "wallet_demo_1": {
+        "repayment_id": "wallet_demo_1",
+        "user_id": "user_demo_1",
+        "wallet_id": "wallet_demo_1",
+        "total_loan": Decimal("50000.00"),
+        "amount_paid": Decimal("25000.00"),
+        "remaining_amount": Decimal("26250.00"),
+        "interest": Decimal("1250.00"),
+        "interest_rate": Decimal("5.00"),
+        "due_date": date.today() + timedelta(days=30),
+        "next_payment": Decimal("5000.00"),
+        "monthly_payment": Decimal("5000.00"),
+        "payment_status": RepaymentStatus.processing,
+        "payment_mode": PaymentMode.wallet,
+        "payment_type": RepaymentType.automatic,
+        "revenue_stream": Decimal("15000.00"),
+        "revenue_delay_days": 0,
+        "created_at": datetime.now(timezone.utc),
+        "updated_at": datetime.now(timezone.utc),
+    },
+    "wallet_001": {
+        "repayment_id": "wallet_001",
+        "user_id": "user_demo_1",
+        "wallet_id": "wallet_001",
+        "total_loan": Decimal("50000.00"),
+        "amount_paid": Decimal("25000.00"),
+        "remaining_amount": Decimal("26250.00"),
+        "interest": Decimal("1250.00"),
+        "interest_rate": Decimal("5.00"),
+        "due_date": date.today() + timedelta(days=30),
+        "next_payment": Decimal("5000.00"),
+        "monthly_payment": Decimal("5000.00"),
+        "payment_status": RepaymentStatus.processing,
+        "payment_mode": PaymentMode.wallet,
+        "payment_type": RepaymentType.automatic,
+        "revenue_stream": Decimal("15000.00"),
+        "revenue_delay_days": 0,
+        "created_at": datetime.now(timezone.utc),
+        "updated_at": datetime.now(timezone.utc),
+    }
+}
+TRANSACTION_STORE: Dict[str, List[Dict[str, Any]]] = {
+    "wallet_demo_1": [
+        {
+            "repayment_id": "wallet_demo_1",
+            "amount": Decimal("5000.00"),
+            "transaction_type": "automatic_repayment",
+            "status": RepaymentStatus.completed,
+            "created_at": datetime.now(timezone.utc),
+            "description": "First auto payment",
+        }
+    ],
+    "wallet_001": [
+        {
+            "repayment_id": "wallet_001",
+            "amount": Decimal("5000.00"),
+            "transaction_type": "automatic_repayment",
+            "status": RepaymentStatus.completed,
+            "created_at": datetime.now(timezone.utc),
+            "description": "First auto payment",
+        }
+    ]
+}
+MILESTONE_STORE: Dict[str, List[Dict[str, Any]]] = {
+    "wallet_demo_1": [],
+    "wallet_001": []
+}
 
 
 def _money(value: Decimal) -> Decimal:
@@ -423,6 +488,71 @@ async def get_repayment_transactions(
 
     return [RepaymentTransaction(**txn) for txn in transactions]
 
+
+class RepaymentSummaryResponse(BaseModel):
+    totalLoan: float
+    amountPaid: float
+    remainingAmount: float
+    interest: float
+    dueDate: date
+    nextPayment: float
+    nextPaymentDate: date
+    repaymentRate: float
+
+class RepaymentScheduleResponseItem(BaseModel):
+    id: str
+    label: str
+    amount: float
+    dueDate: date
+    status: str
+
+@router.get("/{repayment_id}/summary", response_model=RepaymentSummaryResponse)
+async def get_repayment_summary(repayment_id: str):
+    repayment = _get_repayment_or_404(repayment_id)
+    total_loan = float(repayment["total_loan"])
+    amount_paid = float(repayment["amount_paid"])
+    remaining_amount = float(repayment["remaining_amount"])
+    interest = float(repayment["interest"])
+    due_date = repayment["due_date"]
+    next_payment = float(repayment["next_payment"])
+    
+    return RepaymentSummaryResponse(
+        totalLoan=total_loan,
+        amountPaid=amount_paid,
+        remainingAmount=remaining_amount,
+        interest=interest,
+        dueDate=due_date,
+        nextPayment=next_payment,
+        nextPaymentDate=due_date,
+        repaymentRate=50.0 if total_loan == 0 else (amount_paid / total_loan) * 100
+    )
+
+@router.get("/{repayment_id}/schedule", response_model=List[RepaymentScheduleResponseItem])
+async def get_repayment_schedule(repayment_id: str):
+    repayment = _get_repayment_or_404(repayment_id)
+    due_date = repayment["due_date"]
+    monthly_payment = float(repayment["monthly_payment"])
+    
+    return [
+        RepaymentScheduleResponseItem(
+            id="sched_1",
+            label="August Repayment",
+            amount=monthly_payment,
+            dueDate=due_date,
+            status="scheduled"
+        ),
+        RepaymentScheduleResponseItem(
+            id="sched_2",
+            label="September Repayment",
+            amount=monthly_payment,
+            dueDate=due_date + timedelta(days=30),
+            status="pending"
+        )
+    ]
+
+@router.post("/{repayment_id}/pay")
+async def process_repayment_pay(repayment_id: str, payload: Money):
+    return await process_repayment(repayment_id, payload)
 
 @router.get("/health")
 async def repayment_health() -> Dict[str, str]:

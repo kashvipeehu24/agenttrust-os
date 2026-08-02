@@ -1,16 +1,9 @@
-import axios from "axios";
+import api from "../../../services/api";
 import type {
   TransactionRecord,
   PaymentStatus,
   TransactionType,
 } from "../types/transaction";
-
-const api = axios.create({
-  baseURL: "http://localhost:8000",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
 
 const transactionApi = {
   getTransactions: (walletId: string) =>

@@ -12,28 +12,31 @@ export function useRepayment(walletId: string) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const fetchRepayment = async () => {
+    try {
+      setLoading(true);
+
+      const summaryResponse =
+        await repaymentApi.getRepaymentSummary(walletId);
+
+      const scheduleResponse =
+        await repaymentApi.getRepaymentSchedule(walletId);
+
+      setSummary(summaryResponse.data);
+      setSchedule(scheduleResponse.data);
+      setError("");
+    } catch (err) {
+      setError("Failed to load repayment data.");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchRepayment = async () => {
-      try {
-        setLoading(true);
-
-        const summaryResponse =
-          await repaymentApi.getRepaymentSummary(walletId);
-
-        const scheduleResponse =
-          await repaymentApi.getRepaymentSchedule(walletId);
-
-        setSummary(summaryResponse.data);
-        setSchedule(scheduleResponse.data);
-      } catch (err) {
-        setError("Failed to load repayment data.");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRepayment();
+    if (walletId) {
+      fetchRepayment();
+    }
   }, [walletId]);
 
   return {
@@ -41,5 +44,6 @@ export function useRepayment(walletId: string) {
     schedule,
     loading,
     error,
+    refreshRepayment: fetchRepayment,
   };
 }

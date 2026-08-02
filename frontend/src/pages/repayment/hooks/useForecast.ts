@@ -11,25 +11,28 @@ export function useForecast(walletId: string) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const fetchForecast = async () => {
+    try {
+      setLoading(true);
+
+      const summaryRes = await forecastApi.getSummary(walletId);
+      const historyRes = await forecastApi.getHistory(walletId);
+
+      setSummary(summaryRes.data);
+      setHistory(historyRes.data);
+      setError("");
+    } catch (err) {
+      console.error(err);
+      setError("Failed to load forecast.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchForecast = async () => {
-      try {
-        setLoading(true);
-
-        const summaryRes = await forecastApi.getSummary(walletId);
-        const historyRes = await forecastApi.getHistory(walletId);
-
-        setSummary(summaryRes.data);
-        setHistory(historyRes.data);
-      } catch (err) {
-        console.error(err);
-        setError("Failed to load forecast.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchForecast();
+    if (walletId) {
+      fetchForecast();
+    }
   }, [walletId]);
 
   return {
@@ -37,5 +40,6 @@ export function useForecast(walletId: string) {
     history,
     loading,
     error,
+    refreshForecast: fetchForecast,
   };
 }
