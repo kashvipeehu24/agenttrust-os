@@ -14,7 +14,7 @@ def get_agent_permission_service() -> AgentPermissionService:
     raise NotImplementedError("Provide AgentPermissionService dependency")
 
 
-@router.put("/{permission_id}", response_model=AgentPermission)
+@router.put("/{permission_id}", response_model=None)
 async def update_permissions(
     permission_id: str,
     payload: AgentPermissionCreateSchema,
@@ -27,7 +27,7 @@ async def update_permissions(
     return updated_permission
 
 
-@router.get("/{permission_id}", response_model=AgentPermission)
+@router.get("/{permission_id}", response_model=None)
 async def get_permissions(permission_id: str, service: AgentPermissionService = Depends(get_agent_permission_service)) -> AgentPermission:
     permission = await service.get_permission_by_id(permission_id)
     if not permission:

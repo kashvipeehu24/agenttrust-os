@@ -1,5 +1,6 @@
 import ForecastCard from "../components/ForecastCard";
 import { useForecast } from "../hooks/useForecast";
+import { LoadingSkeleton, ErrorState, EmptyState } from "../../../components/common/FeedbackStates";
 
 export default function ForecastDashboard() {
   // Replace later with authenticated user's wallet ID
@@ -10,30 +11,25 @@ export default function ForecastDashboard() {
     history,
     loading,
     error,
+    refreshForecast,
   } = useForecast(walletId);
 
   if (loading) {
-    return (
-      <div className="rounded-xl border bg-white p-6">
-        Loading forecast...
-      </div>
-    );
+    return <LoadingSkeleton />;
   }
 
   if (error) {
     return (
-      <div className="rounded-xl border border-red-200 bg-red-50 p-6 text-red-600">
-        {error}
-      </div>
+      <ErrorState
+        message={error}
+        details="Axios client failed to fetch /forecast/{walletId}/summary and /forecast/{walletId}"
+        onRetry={refreshForecast}
+      />
     );
   }
 
   if (!summary) {
-    return (
-      <div className="rounded-xl border bg-white p-6">
-        No forecast data available.
-      </div>
-    );
+    return <EmptyState title="No Forecast Metrics" description="No future balance or projected revenue timeline points were found." />;
   }
 
   return (

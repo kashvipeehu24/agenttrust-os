@@ -122,8 +122,84 @@ def _to_money(value: Decimal) -> Decimal:
     return value.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
 
-wallet_store: Dict[str, Dict[str, Any]] = {}
-transaction_store: Dict[str, List[Dict[str, Any]]] = {}
+wallet_store: Dict[str, Dict[str, Any]] = {
+    "wallet_demo_1": {
+        "wallet_id": "wallet_demo_1",
+        "user_id": "user_demo_1",
+        "currency": "USD",
+        "balance": Decimal("150000.00"),
+        "credit_limit": Decimal("500000.00"),
+        "loan_outstanding": Decimal("50000.00"),
+        "total_revenue": Decimal("1200000.00"),
+        "pending_revenue": Decimal("10000.00"),
+        "amount_repaid": Decimal("25000.00"),
+        "payment_status": PaymentStatus.completed,
+        "last_updated": datetime.now(timezone.utc),
+    },
+    "wallet_001": {
+        "wallet_id": "wallet_001",
+        "user_id": "user_demo_1",
+        "currency": "USD",
+        "balance": Decimal("150000.00"),
+        "credit_limit": Decimal("500000.00"),
+        "loan_outstanding": Decimal("50000.00"),
+        "total_revenue": Decimal("1200000.00"),
+        "pending_revenue": Decimal("10000.00"),
+        "amount_repaid": Decimal("25000.00"),
+        "payment_status": PaymentStatus.completed,
+        "last_updated": datetime.now(timezone.utc),
+    }
+}
+transaction_store: Dict[str, List[Dict[str, Any]]] = {
+    "wallet_demo_1": [
+        {
+            "transaction_id": "tx_000001",
+            "wallet_id": "wallet_demo_1",
+            "user_id": "user_demo_1",
+            "type": TransactionType.credit_received,
+            "amount": Decimal("50000.00"),
+            "status": PaymentStatus.completed,
+            "description": "Initial credit line approval",
+            "created_at": datetime.now(timezone.utc),
+            "balance_after": Decimal("50000.00"),
+        },
+        {
+            "transaction_id": "tx_000002",
+            "wallet_id": "wallet_demo_1",
+            "user_id": "user_demo_1",
+            "type": TransactionType.revenue,
+            "amount": Decimal("100000.00"),
+            "status": PaymentStatus.completed,
+            "description": "Escrow released from sales model",
+            "created_at": datetime.now(timezone.utc),
+            "balance_after": Decimal("150000.00"),
+        }
+    ],
+    "wallet_001": [
+        {
+            "transaction_id": "tx_000001",
+            "wallet_id": "wallet_001",
+            "user_id": "user_demo_1",
+            "type": TransactionType.credit_received,
+            "amount": Decimal("50000.00"),
+            "status": PaymentStatus.completed,
+            "description": "Initial credit line approval",
+            "created_at": datetime.now(timezone.utc),
+            "balance_after": Decimal("50000.00"),
+        },
+        {
+            "transaction_id": "tx_000002",
+            "wallet_id": "wallet_001",
+            "user_id": "user_demo_1",
+            "type": TransactionType.revenue,
+            "amount": Decimal("100000.00"),
+            "status": PaymentStatus.completed,
+            "description": "Escrow released from sales model",
+            "created_at": datetime.now(timezone.utc),
+            "balance_after": Decimal("150000.00"),
+        }
+    ]
+}
 
 
 def _get_wallet_or_404(wallet_id: str) -> Dict[str, Any]:

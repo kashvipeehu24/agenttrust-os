@@ -1,4 +1,4 @@
-from . .models import risk
+from ..models import risk
 
 from .risk_service import RiskService
 from .credit_service import CreditService

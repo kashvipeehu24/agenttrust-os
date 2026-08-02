@@ -1,1 +1,136 @@
 @import "tailwindcss";
+
+@layer base {
+  /* Unified Color System: Dark Slate backgrounds */
+  body {
+    background-color: #020617 !important; /* slate-950 */
+    color: #f8fafc !important; /* slate-50 */
+  }
+
+  /* Clear light backgrounds to inherit slate-950 body */
+  .min-h-screen.bg-slate-100,
+  .min-h-screen.bg-gray-50,
+  .min-h-screen.bg-slate-50,
+  .bg-slate-100,
+  .bg-gray-50,
+  .bg-slate-50 {
+    background-color: transparent !important;
+  }
+
+  /* Unified Premium Card Styling: Dark glassmorphism card */
+  .bg-white {
+    background-color: #0f172a !important; /* slate-900 */
+    border-color: rgba(30, 41, 59, 0.6) !important; /* slate-800/60 */
+    color: #e2e8f0 !important; /* slate-200 */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  /* Card and Layout Border Unification */
+  .border-gray-200,
+  .border-gray-100,
+  .border-slate-200,
+  .border {
+    border-color: rgba(30, 41, 59, 0.8) !important;
+  }
+
+  /* Unified Typography System text overrides */
+  .text-slate-900,
+  .text-gray-900,
+  .text-gray-800,
+  .text-gray-700,
+  .text-slate-700 {
+    color: #f1f5f9 !important; /* slate-100 */
+  }
+
+  .text-gray-500,
+  .text-gray-600,
+  .text-slate-500,
+  .text-slate-600 {
+    color: #94a3b8 !important; /* slate-400 */
+  }
+
+  /* Unified Form Fields: Input, select, textareas */
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="password"],
+  select,
+  textarea {
+    background-color: #020617 !important; /* slate-950 */
+    border: 1px solid rgba(71, 85, 105, 0.4) !important; /* slate-600/40 */
+    color: #f8fafc !important; /* slate-50 */
+    border-radius: 0.5rem !important;
+    transition: all 0.2s ease-in-out !important;
+  }
+
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  select:focus,
+  textarea:focus {
+    border-color: #22d3ee !important; /* cyan-400 */
+    box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.2) !important;
+    outline: none !important;
+  }
+
+  /* Unified Buttons: Cyan Primary Button style */
+  .bg-blue-600,
+  .bg-blue-500,
+  .bg-indigo-600,
+  .bg-indigo-500 {
+    background-color: #22d3ee !important; /* cyan-400 */
+    color: #020617 !important; /* slate-950 */
+    font-weight: 600 !important;
+    transition: all 0.2s ease-in-out !important;
+    box-shadow: 0 4px 6px -1px rgba(34, 211, 238, 0.15) !important;
+  }
+
+  .bg-blue-600:hover,
+  .bg-blue-500:hover,
+  .bg-indigo-600:hover,
+  .bg-indigo-500:hover {
+    background-color: #06b6d4 !important; /* cyan-500 */
+    box-shadow: 0 0 12px rgba(34, 211, 238, 0.45) !important;
+  }
+
+  /* Unified Table styling */
+  table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+  }
+
+  th {
+    background-color: #020617 !important; /* slate-950 */
+    color: #64748b !important; /* slate-500 */
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    border-bottom: 1px solid #1e293b !important; /* slate-800 */
+    padding: 0.75rem 1rem !important;
+  }
+
+  td {
+    border-bottom: 1px solid rgba(30, 41, 59, 0.4) !important;
+    color: #cbd5e1 !important; /* slate-300 */
+    padding: 0.75rem 1rem !important;
+  }
+
+  tr:hover td {
+    background-color: rgba(30, 41, 59, 0.25) !important;
+  }
+
+  /* Unified Empty / Error Alert states styling */
+  .bg-red-50,
+  .bg-red-100 {
+    background-color: rgba(244, 63, 94, 0.1) !important; /* soft rose-500/10 */
+    border-color: rgba(244, 63, 94, 0.3) !important; /* rose-500/30 */
+    color: #fda4af !important; /* rose-300 */
+  }
+
+  .bg-green-50,
+  .bg-green-100 {
+    background-color: rgba(16, 185, 129, 0.1) !important; /* soft emerald-500/10 */
+    border-color: rgba(16, 185, 129, 0.3) !important; /* emerald-500/30 */
+    color: #a7f3d0 !important; /* emerald-300 */
+  }
+}

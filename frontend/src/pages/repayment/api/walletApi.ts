@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../../services/api";
 import type {
   Wallet,
   WalletSummary,
@@ -9,13 +9,6 @@ import type {
   WalletDebitRequest,
   WalletRepaymentRequest,
 } from "../types/wallet";
-
-const api = axios.create({
-  baseURL: "http://localhost:8000",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
 
 export const walletApi = {
   createWallet: (data: CreateWalletRequest) =>

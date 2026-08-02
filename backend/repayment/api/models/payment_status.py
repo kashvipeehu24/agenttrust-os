@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 from datetime import datetime
+from enum import Enum as PyEnum
 
-from sqlalchemy import Column, DateTime, Enum, String
+from sqlalchemy import Column, DateTime, Enum as SQLEnum, String
 
 from .base import Base
 
 
-class PaymentStatus(str, Enum):
+class PaymentStatus(str, PyEnum):
     pending = "pending"
     processing = "processing"
     completed = "completed"
@@ -19,8 +20,9 @@ class PaymentStatusModel(Base):
 
     id = Column(String, primary_key=True, index=True)
     payment_id = Column(String, index=True, nullable=False)
-    status = Column(Enum(PaymentStatus), default=PaymentStatus.pending, nullable=False)
+    status = Column(SQLEnum(PaymentStatus), default=PaymentStatus.pending, nullable=False)
     updated_by = Column(String, default="system", nullable=False)
     reason = Column(String, default="No reason provided", nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+

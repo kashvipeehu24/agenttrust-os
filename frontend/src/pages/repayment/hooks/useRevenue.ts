@@ -19,28 +19,31 @@ export function useRevenue(walletId: string) {
   const [error, setError] =
     useState("");
 
+  const fetchRevenue = async () => {
+    try {
+      setLoading(true);
+
+      const summaryResponse =
+        await revenueApi.getRevenueSummary(walletId);
+
+      const entriesResponse =
+        await revenueApi.getRevenueEntries(walletId);
+
+      setSummary(summaryResponse.data);
+      setEntries(entriesResponse.data);
+      setError("");
+    } catch (err) {
+      console.error(err);
+      setError("Failed to load revenue data.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchRevenue = async () => {
-      try {
-        setLoading(true);
-
-        const summaryResponse =
-          await revenueApi.getRevenueSummary(walletId);
-
-        const entriesResponse =
-          await revenueApi.getRevenueEntries(walletId);
-
-        setSummary(summaryResponse.data);
-        setEntries(entriesResponse.data);
-      } catch (err) {
-        console.error(err);
-        setError("Failed to load revenue data.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRevenue();
+    if (walletId) {
+      fetchRevenue();
+    }
   }, [walletId]);
 
   return {
@@ -48,5 +51,6 @@ export function useRevenue(walletId: string) {
     entries,
     loading,
     error,
+    refreshRevenue: fetchRevenue,
   };
 }

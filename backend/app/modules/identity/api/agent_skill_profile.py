@@ -32,7 +32,7 @@ async def add_skill(payload: AgentSkillProfileCreateSchema, service: AgentSkillP
         confidence_score=payload.confidence_score,
         certified=payload.certified,
         last_assessed_at=payload.last_assessed_at,
-        metadata=payload.metadata,
+        skill_metadata=payload.metadata,
     )
     created = await service.add_skill(profile)
     return created
