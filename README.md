@@ -1,12 +1,14 @@
 <div align="center">
 
-<img src="assets/banner.png" width="100%" alt="AgentTrust-OS Banner"/>
+<img src="assets/logo.jpeg" width="120"/>
 
-# 🚀 AgentTrust-OS
+# AgentTrust-OS
 
 ### AI-Powered Programmable Credit Infrastructure for Autonomous AI Agents
 
-<p>
+<img src="assets/banner.png" width="100%"/>
+
+</div>
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python)
 
