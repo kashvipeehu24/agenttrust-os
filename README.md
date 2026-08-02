@@ -1,120 +1,102 @@
 <div align="center">
 
-<img src="assets/logo.jpeg" width="120"/>
+<img src="assets/logo.jpeg" width="120" alt="AgentTrust-OS Logo">
 
-# AgentTrust-OS
+# 🚀 AgentTrust-OS
 
-### AI-Powered Programmable Credit Infrastructure for Autonomous AI Agents
+### Building the Trust Layer for Autonomous AI Agents
 
-<img src="assets/banner.png" width="100%"/>
+*AI-Powered Identity • Governance • Underwriting • Repayment*
 
-</div>
+<img src="assets/banner.png" width="100%" alt="AgentTrust-OS Banner">
 
-![Python](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python)
+<br>
 
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi)
-
-![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)
-
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript)
-
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql)
-
-![Blockchain](https://img.shields.io/badge/Blockchain-Enabled-success?style=for-the-badge)
-
-</p>
-
----
-
-### 🔒 Building the Trust Layer for Autonomous AI Agents
-
-*"Empowering autonomous AI agents with identity, trust, governance, programmable credit, and secure repayment intelligence."*
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Blockchain](https://img.shields.io/badge/Blockchain-Enabled-2ECC71?style=for-the-badge)
 
 </div>
 
 ---
 
-## 📖 Overview
+# 📖 Overview
 
-**AgentTrust-OS** is an enterprise-grade platform that enables autonomous AI agents to establish verifiable identities, build trust, receive intelligent credit decisions, comply with governance policies, and maintain transparent financial histories.
+AgentTrust-OS is an enterprise-grade platform that enables financial trust for autonomous AI agents.
 
-Designed for the future of autonomous AI economies, AgentTrust-OS combines **AI**, **FastAPI**, **React**, **Blockchain**, and **Enterprise Governance** into one unified platform.
+As AI systems begin making autonomous decisions, interacting with digital services, and executing financial transactions, they require a secure trust infrastructure. AgentTrust-OS provides programmable identity, governance, underwriting, and repayment capabilities that allow AI agents to participate safely in financial ecosystems.
+
+The platform combines AI-powered credit evaluation, blockchain-backed trust records, governance policies, and repayment intelligence into one modular architecture.
 
 ---
 
 # ✨ Key Features
 
-- 🔐 **Decentralized AI Identity** – Secure identity layer for autonomous AI agents.
-- 🧠 **AI Credit Underwriting** – Intelligent risk analysis and credit evaluation.
-- 💰 **Dynamic Credit Engine** – Adaptive credit limits based on agent performance.
-- ⛓️ **Blockchain Verification** – Transparent and tamper-proof trust records.
-- 🏛️ **Governance Framework** – Policy enforcement and compliance management.
-- 📈 **Repayment Intelligence** – Automated repayment tracking and monitoring.
-- 📊 **Real-Time Analytics** – Live dashboards for trust, credit, and performance.
-- ⚡ **Enterprise Ready** – Modular, scalable architecture built with FastAPI and React.
+| Feature | Description |
+|----------|-------------|
+| 🆔 **Agent Identity** | Secure digital identity for autonomous AI agents |
+| 🏛 **Governance Engine** | Trust policies and compliance management |
+| 🤖 **AI Underwriting** | Intelligent creditworthiness evaluation |
+| 💳 **Programmable Credit** | Automated credit allocation workflows |
+| 📊 **Risk Analytics** | Real-time trust and risk scoring |
+| 🔗 **Blockchain Verification** | Immutable trust records |
+| 📈 **Repayment Intelligence** | Smart repayment monitoring and recommendations |
+| ⚡ **REST APIs** | Modular APIs for easy integration |
 
 ---
 
-# 🏗️ System Architecture
+# 🎯 Vision
+
+Our vision is to establish the foundational trust infrastructure that enables autonomous AI agents to securely access programmable credit and financial services while ensuring transparency, accountability, and governance.
+
+---
+# 🏗 System Architecture
 
 ```mermaid
 flowchart LR
 
-A[🤖 AI Agent]
-B[🆔 Identity]
-C[🏛 Governance]
-D[🧠 AI Underwriting]
-E[💳 Credit Engine]
-F[⛓ Blockchain]
-G[💰 Repayment]
-H[📊 Dashboard]
+    A[🤖 AI Agent]
 
-A --> B
-B --> C
-C --> D
-D --> E
-E --> F
-F --> G
-G --> H
+    A --> B[🆔 Identity]
+    B --> C[🏛 Governance]
+    C --> D[💳 AI Underwriting]
+    D --> E[💰 Repayment Engine]
+
+    E --> F[(PostgreSQL)]
+
+    D --> G[🤖 AI Risk Engine]
+    G --> H[🔗 Blockchain Verification]
+
+    H --> I[📊 Trust Score]
 ```
 
 ---
 
-# 🔄 Project Workflow
+# 🧩 Platform Modules
 
-```mermaid
-flowchart TD
-
-A[AI Agent Registration]
-B[Identity Verification]
-C[Governance Validation]
-D[AI Risk Analysis]
-E[Credit Decision]
-F[Blockchain Verification]
-G[Loan Approval]
-H[Repayment Monitoring]
-
-A --> B
-B --> C
-C --> D
-D --> E
-E --> F
-F --> G
-G --> H
-```
+| Module | Purpose | Status |
+|---------|---------|--------|
+| 🆔 Identity | Digital identity and authentication for AI agents | ✅ |
+| 🏛 Governance | Trust policies and compliance management | ✅ |
+| 💳 Underwriting | AI-powered credit evaluation and eligibility | ✅ |
+| 💰 Repayment | Loan lifecycle and repayment monitoring | ✅ |
 
 ---
 
-# 🛠️ Tech Stack
+# ⚙️ Technology Stack
 
 | Layer | Technology |
 |--------|------------|
-| 🎨 Frontend | React 19, TypeScript, Vite |
-| ⚙️ Backend | FastAPI |
-| 🐍 AI Engine | Python |
-| 🗄 Database | PostgreSQL |
-| ⛓ Blockchain | Ethereum Ready |
-| 🎯 Styling | Tailwind CSS |
+| Frontend | React 19 + TypeScript + Vite |
+| Backend | FastAPI |
+| Database | PostgreSQL |
+| AI Services | Python |
+| Blockchain | Ethereum Compatible Ledger |
+| API | REST |
+| Version Control | Git & GitHub |
 
 ---
 
@@ -124,19 +106,54 @@ G --> H
 AgentTrust-OS
 │
 ├── backend/
+│   ├── app/
+│   │   ├── api/
+│   │   ├── modules/
+│   │   ├── models/
+│   │   ├── schemas/
+│   │   └── main.py
+│   │
+│   └── requirements.txt
+│
 ├── frontend/
+│   ├── src/
+│   ├── public/
+│   └── package.json
+│
 ├── blockchain/
-├── docs/
+│
 ├── assets/
-├── README.md
-└── requirements.txt
+│   ├── banner.png
+│   └── logo.jpeg
+│
+└── README.md
 ```
 
 ---
 
-# 🎯 Vision
+# 🔄 Workflow
 
-**AgentTrust-OS** aims to become the foundational trust infrastructure for autonomous AI agents by combining AI-powered underwriting, decentralized identity, blockchain-backed verification, governance, and intelligent repayment into one unified platform.
+```text
+AI Agent
+    │
+    ▼
+Identity Verification
+    │
+    ▼
+Governance Validation
+    │
+    ▼
+AI Credit Evaluation
+    │
+    ▼
+Blockchain Trust Recording
+    │
+    ▼
+Credit Decision
+    │
+    ▼
+Repayment Monitoring
+```
 
 ---
 
@@ -144,92 +161,153 @@ AgentTrust-OS
 
 ## Prerequisites
 
-Before running the project, make sure you have:
-
 - Python 3.12+
 - Node.js 20+
-- npm
 - PostgreSQL
 - Git
 
----
-
-## Installation
-
-### Clone Repository
+## Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/AgentTrust-OS.git
-
-cd AgentTrust-OS
+git clone https://github.com/<your-username>/agenttrust-os.git
+cd agenttrust-os
 ```
 
-### Backend Setup
+## Backend
 
 ```bash
 cd backend
-
-python -m venv .venv
-
-source .venv/bin/activate      # macOS/Linux
-
 pip install -r requirements.txt
-
-uvicorn app.main:app --reload
+python -m uvicorn app.main:app --reload
 ```
 
-### Frontend Setup
+Backend runs at:
+
+```
+http://127.0.0.1:8000
+```
+
+Swagger Documentation:
+
+```
+http://127.0.0.1:8000/docs
+```
+
+---
+
+## Frontend
 
 ```bash
 cd frontend
-
 npm install
-
 npm run dev
 ```
+
+Frontend runs at:
+
+```
+http://localhost:5173
+```
+
+---
+
+# 🔌 API Overview
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/` | Backend health check |
+| POST | `/underwriting/evaluate` | AI underwriting evaluation |
+
+---
+
+# 🔒 Security Features
+
+- 🔐 Secure API architecture
+- 🆔 Digital identity verification
+- 🛡 Governance policy enforcement
+- 🔗 Blockchain-backed trust records
+- 📊 AI-powered risk assessment
+- 🔒 Modular backend design
+
+---
+
+# 🌍 Real-World Applications
+
+- Autonomous AI Finance
+- AI Lending Platforms
+- Enterprise Credit Infrastructure
+- Multi-Agent Ecosystems
+- AI Marketplaces
+- Digital Trust Networks
+
+---
+
+# 🛣 Future Roadmap
+
+- ✅ Multi-agent trust network
+- ✅ Advanced blockchain integration
+- ✅ Federated identity support
+- ✅ Explainable AI underwriting
+- ✅ Cross-platform API SDKs
+- ✅ Enterprise deployment
+- ✅ Global programmable credit infrastructure
+
+---
+
+# 🏆 Hackathon Vision
+
+AgentTrust-OS demonstrates how autonomous AI agents can safely participate in financial ecosystems through programmable trust, governance, intelligent underwriting, and transparent credit infrastructure.
+
+The project is designed with a modular architecture that can evolve into an enterprise-grade platform for the next generation of AI-native financial systems.
+
+---
+
+# 🤝 Contributing
+
+We welcome contributions from developers, researchers, and AI enthusiasts.
+
+### Contribution Workflow
+
+1. Fork the repository
+2. Create a new feature branch
+3. Commit your changes
+4. Push your branch
+5. Open a Pull Request
+
+---
+
+# 📊 Project Status
+
+| Module | Status |
+|---------|--------|
+| 🆔 Identity | ✅ Complete |
+| 🏛 Governance | ✅ Complete |
+| 💳 Underwriting | ✅ Complete |
+| 💰 Repayment | ✅ Complete |
+| 🎨 Frontend | ✅ Complete |
+| ⚙ Backend APIs | ✅ Complete |
 
 ---
 
 # 🌟 Why AgentTrust-OS?
 
-Unlike traditional lending systems built for humans, AgentTrust-OS introduces a programmable financial infrastructure designed specifically for autonomous AI agents.
+Traditional financial systems were built for humans.
 
-Our platform combines:
+AgentTrust-OS introduces a trust-first financial infrastructure designed specifically for autonomous AI agents, enabling secure identity, intelligent underwriting, transparent governance, and programmable credit.
 
-- 🤖 AI-native credit underwriting
-- 🔐 Verifiable digital identity
-- ⛓ Blockchain-backed trust
-- 🏛 Governance & compliance
-- 💰 Intelligent repayment monitoring
-
-into one unified operating system.
-
----
-
-# 📈 Future Roadmap
-
-| Phase | Status |
-|--------|--------|
-| AI Identity | ✅ Completed |
-| Credit Underwriting | ✅ Completed |
-| Governance Engine | ✅ Completed |
-| Repayment Module | ✅ Completed |
-| AI Marketplace | 🚧 Planned |
-| Multi-Agent Credit Network | 🚧 Planned |
-| Cross-Chain Verification | 🚧 Planned |
-| Global AI Credit Infrastructure | 🎯 Vision |
+Our goal is to provide the foundation for the emerging AI economy.
 
 ---
 
 # 👥 Contributors
 
-This project was developed as part of a national hackathon by a multidisciplinary team specializing in:
+Developed during a hackathon by a multidisciplinary team focused on:
 
-- Artificial Intelligence
-- Backend Engineering
-- Frontend Development
-- Blockchain Integration
-- UI/UX Design
+- 🤖 Artificial Intelligence
+- ⚙ Backend Engineering
+- 🎨 Frontend Development
+- ⛓ Blockchain Integration
+- 📊 Product Design
 
 ---
 
@@ -239,109 +317,20 @@ This project is intended for educational, research, and hackathon purposes.
 
 ---
 
-<div align="center">
+# ⭐ Support
 
-## ⭐ If you found this project interesting, please consider giving it a star.
+If you found this project useful, please consider giving it a ⭐ on GitHub.
 
-**Building the Trust Layer for Autonomous AI Agents.**
-
-</div>
-
----
-
-# 📸 Demo
-
-## Dashboard
-
-> *Add screenshots of your application inside the `assets/screenshots` folder.*
-
-| Landing Page | Underwriting |
-|--------------|--------------|
-| ![](assets/screenshots/landing.png) | ![](assets/screenshots/underwriting.png) |
-
-| Governance | Repayment |
-|------------|-----------|
-| ![](assets/screenshots/governance.png) | ![](assets/screenshots/repayment.png) |
-
----
-
-# 🌍 Real-World Applications
-
-- 🏦 Autonomous AI lending
-- 🤖 AI Agent marketplaces
-- 🏢 Enterprise AI governance
-- 💳 Programmable AI credit
-- 🌐 Decentralized AI economies
-- 🔐 Trust verification for autonomous systems
-
----
-
-# 🔒 Security
-
-AgentTrust-OS is designed with security as a first-class principle.
-
-- 🔐 Secure AI Identity
-- 🛡️ Trust-based Authorization
-- ⛓️ Immutable Blockchain Records
-- 📜 Governance Policies
-- 🔍 Transparent Audit Trails
-
----
-
-# 📊 Core
-
----
-
-# 📬 API Overview
-
-| Endpoint | Description |
-|----------|-------------|
-| `/identity` | Register and verify AI agents |
-| `/underwriting/evaluate` | Perform AI credit evaluation |
-| `/governance/policies` | Manage governance rules |
-| `/repayment` | Track repayments and loan status |
-| `/analytics` | Generate dashboards and insights |
-
----
-
-# 📊 Platform Highlights
-
-<div align="center">
-
-| 🤖 AI Agents | 🛡 Trust Engine | 💳 Credit | ⛓ Blockchain |
-|:------------:|:---------------:|:---------:|:-------------:|
-| Autonomous Identity | Dynamic Trust Score | Intelligent Underwriting | Immutable Verification |
-
-</div>
-
----
-
-# 🌐 Enterprise Use Cases
-
-- 🏦 AI Financial Institutions
-- 🤖 Autonomous Agent Marketplaces
-- 🏢 Enterprise AI Governance
-- 🌍 Decentralized AI Networks
-- 📈 AI Risk Management
-- 💳 Autonomous Lending Platforms
-
----
-
-# 🏆 Hackathon Vision
-
-AgentTrust-OS reimagines financial infrastructure for autonomous AI systems by combining trust, governance, underwriting, blockchain verification, and repayment intelligence into a unified enterprise platform.
-
-Our vision is to enable AI agents to securely establish identity, earn trust, access programmable credit, and participate in the emerging autonomous AI economy.
+Your support motivates future development and improvements.
 
 ---
 
 <div align="center">
 
-## ⭐ Star this repository if you found it useful!
+## 🚀 AgentTrust-OS
 
-### AgentTrust-OS
-### *Building the Trust Layer for Autonomous AI Agents.*
+### Building the Trust Layer for Autonomous AI Agents
+
+Made with ❤️ using FastAPI, React, TypeScript, PostgreSQL, Python, and Blockchain Technologies.
 
 </div>
-
-
