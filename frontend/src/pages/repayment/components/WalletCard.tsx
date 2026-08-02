@@ -1,52 +1,46 @@
+import type { WalletSummary } from "../types/wallet";
+
 type WalletCardProps = {
-  walletBalance: number;
-  creditAvailable: number;
-  loanOutstanding: number;
-  totalRevenue: number;
-  amountRepaid: number;
+  wallet: WalletSummary;
   trend?: string;
 };
 
 const formatCurrency = (value: number): string =>
-  new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
+  new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
     maximumFractionDigits: 2,
   }).format(value);
 
 export default function WalletCard({
-  walletBalance,
-  creditAvailable,
-  loanOutstanding,
-  totalRevenue,
-  amountRepaid,
-  trend = '+8.4% this month',
+  wallet,
+  trend = "+8.4% this month",
 }: WalletCardProps) {
   const metrics = [
     {
-      label: 'Wallet Balance',
-      value: formatCurrency(walletBalance),
-      accent: 'text-emerald-600',
+      label: "Wallet Balance",
+      value: formatCurrency(wallet.balance),
+      accent: "text-emerald-600",
     },
     {
-      label: 'Credit Available',
-      value: formatCurrency(creditAvailable),
-      accent: 'text-sky-600',
+      label: "Credit Available",
+      value: formatCurrency(wallet.credit_available),
+      accent: "text-sky-600",
     },
     {
-      label: 'Loan Outstanding',
-      value: formatCurrency(loanOutstanding),
-      accent: 'text-amber-600',
+      label: "Loan Outstanding",
+      value: formatCurrency(wallet.loan_outstanding),
+      accent: "text-amber-600",
     },
     {
-      label: 'Total Revenue',
-      value: formatCurrency(totalRevenue),
-      accent: 'text-violet-600',
+      label: "Total Revenue",
+      value: formatCurrency(wallet.total_revenue),
+      accent: "text-violet-600",
     },
     {
-      label: 'Amount Repaid',
-      value: formatCurrency(amountRepaid),
-      accent: 'text-rose-600',
+      label: "Amount Repaid",
+      value: formatCurrency(wallet.amount_repaid),
+      accent: "text-rose-600",
     },
   ];
 
@@ -57,8 +51,9 @@ export default function WalletCard({
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
             Wallet
           </p>
+
           <h3 className="mt-2 text-2xl font-semibold text-slate-900">
-            {formatCurrency(walletBalance)}
+            {formatCurrency(wallet.balance)}
           </h3>
         </div>
 
@@ -76,6 +71,7 @@ export default function WalletCard({
             <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
               {item.label}
             </p>
+
             <p className={`mt-2 text-lg font-semibold ${item.accent}`}>
               {item.value}
             </p>
@@ -85,4 +81,3 @@ export default function WalletCard({
     </div>
   );
 }
-
