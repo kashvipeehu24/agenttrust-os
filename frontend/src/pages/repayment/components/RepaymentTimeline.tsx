@@ -6,7 +6,7 @@ import type {
 
 interface RepaymentTimelineProps {
   summary: RepaymentSummary;
-  schedule: RepaymentScheduleItem[];
+  schedule?: RepaymentScheduleItem[];
 }
 
 const formatCurrency = (value: number) =>
@@ -19,6 +19,8 @@ export default function RepaymentTimeline({
   summary,
   schedule,
 }: RepaymentTimelineProps) {
+  const scheduleItems = Array.isArray(schedule) ? schedule : [];
+
   return (
     <div className="space-y-6">
 
@@ -101,8 +103,7 @@ export default function RepaymentTimeline({
 
         <div className="space-y-4">
 
-          {schedule.map((item) => (
-
+          {scheduleItems.map((item) => (
             <div
               key={item.id}
               className="flex items-center justify-between rounded-xl border p-4"
@@ -133,7 +134,6 @@ export default function RepaymentTimeline({
               </div>
 
             </div>
-
           ))}
 
         </div>

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import axios from "axios";
+import { useCallback, useEffect, useState } from "react";
 import cashFlowApi from "../api/cashFlowApi";
 
 import type {
@@ -19,38 +20,44 @@ export function useCashFlow(walletId: string) {
   const [error, setError] =
     useState("");
 
-  const fetchCashFlow = async () => {
+  const fetchCashFlow = useCallback(async (signal?: AbortSignal) => {
     try {
       setLoading(true);
 
       const summaryResponse =
-        await cashFlowApi.getSummary(walletId);
+        await cashFlowApi.getSummary(walletId, { signal });
 
       const historyResponse =
-        await cashFlowApi.getHistory(walletId);
+        await cashFlowApi.getHistory(walletId, { signal });
 
-      setSummary(summaryResponse.data);
-      setHistory(historyResponse.data);
+      setSummary(summaryResponse.data ?? null);
+      setHistory(Array.isArray(historyResponse.data) ? historyResponse.data : []);
       setError("");
     } catch (err) {
-      console.error(err);
-      setError("Failed to load cash flow.");
+      if (!axios.isCancel(err) && !signal?.aborted) {
+        console.error(err);
+        setError(err instanceof Error ? err.message : "Failed to load cash flow.");
+      }
     } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (walletId) {
-      fetchCashFlow();
+      if (!signal?.aborted) setLoading(false);
     }
   }, [walletId]);
+
+  useEffect(() => {
+    if (!walletId) {
+      setLoading(false);
+      return;
+    }
+    const controller = new AbortController();
+    fetchCashFlow(controller.signal);
+    return () => controller.abort();
+  }, [walletId, fetchCashFlow]);
 
   return {
     summary,
     history,
     loading,
     error,
-    refreshCashFlow: fetchCashFlow,
+    refreshCashFlow: () => fetchCashFlow(),
   };
 }

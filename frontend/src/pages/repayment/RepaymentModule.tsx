@@ -1,24 +1,13 @@
-import WalletDashboard from "./pages/WalletDashboard";
-import TransactionsPage from "./pages/TransactionsPage";
-import RepaymentDashboard from "./pages/RepaymentDashboard";
-import RevenueDashboard from "./pages/RevenueDashboard";
-import CashFlowDashboard from "./pages/CashFlowDashboard";
-import ForecastDashboard from "./pages/ForecastDashboard";
-
-export default function RepaymentModule() {
+export default function RepaymentDashboard() {
   return (
-  <div className="space-y-8 p-6">
-    <WalletDashboard />
-
-    <RepaymentDashboard />
-
-    <RevenueDashboard />
-
-    <CashFlowDashboard />
-
-    <ForecastDashboard />
-
-    <TransactionsPage />
-  </div>
+    <div
+      style={{
+        color: "white",
+        fontSize: "40px",
+        padding: "50px",
+      }}
+    >
+      REPAYMENT PAGE IS WORKING
+    </div>
   );
 }

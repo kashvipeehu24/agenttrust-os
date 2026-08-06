@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import axios from "axios";
+import { useCallback, useEffect, useState } from "react";
 import forecastApi from "../api/forecastApi";
 import type {
   ForecastPoint,
@@ -11,35 +12,41 @@ export function useForecast(walletId: string) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const fetchForecast = async () => {
+  const fetchForecast = useCallback(async (signal?: AbortSignal) => {
     try {
       setLoading(true);
 
-      const summaryRes = await forecastApi.getSummary(walletId);
-      const historyRes = await forecastApi.getHistory(walletId);
+      const summaryRes = await forecastApi.getSummary(walletId, { signal });
+      const historyRes = await forecastApi.getHistory(walletId, { signal });
 
-      setSummary(summaryRes.data);
-      setHistory(historyRes.data);
+      setSummary(summaryRes.data ?? null);
+      setHistory(Array.isArray(historyRes.data) ? historyRes.data : []);
       setError("");
     } catch (err) {
-      console.error(err);
-      setError("Failed to load forecast.");
+      if (!axios.isCancel(err) && !signal?.aborted) {
+        console.error(err);
+        setError(err instanceof Error ? err.message : "Failed to load forecast.");
+      }
     } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (walletId) {
-      fetchForecast();
+      if (!signal?.aborted) setLoading(false);
     }
   }, [walletId]);
+
+  useEffect(() => {
+    if (!walletId) {
+      setLoading(false);
+      return;
+    }
+    const controller = new AbortController();
+    fetchForecast(controller.signal);
+    return () => controller.abort();
+  }, [walletId, fetchForecast]);
 
   return {
     summary,
     history,
     loading,
     error,
-    refreshForecast: fetchForecast,
+    refreshForecast: () => fetchForecast(),
   };
 }

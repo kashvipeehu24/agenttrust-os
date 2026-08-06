@@ -1,4 +1,5 @@
 import api from "../../../services/api";
+import type { AxiosRequestConfig } from "axios";
 import type {
   Wallet,
   WalletSummary,
@@ -17,12 +18,12 @@ export const walletApi = {
   getWallet: (walletId: string) =>
     api.get<Wallet>(`/wallets/${walletId}`),
 
-  getWalletSummary: (walletId: string) =>
-    api.get<WalletSummary>(`/wallets/${walletId}/summary`),
+  getWalletSummary: (walletId: string, config?: AxiosRequestConfig) =>
+    api.get<WalletSummary>(`/wallets/${walletId}/summary`, config),
 
-  getTransactions: (walletId: string) =>
+  getTransactions: (walletId: string, config?: AxiosRequestConfig) =>
     api.get<WalletTransaction[]>(
-      `/wallets/${walletId}/transactions`
+      `/wallets/${walletId}/transactions`, config,
     ),
 
   getStatus: (walletId: string) =>

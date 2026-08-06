@@ -146,108 +146,107 @@ export function App() {
                 setIsSandboxModalOpen(true);
               }}
               openIncidentsCount={incidents.filter((i) => i.status !== 'Resolved').length}
-            >
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <DashboardPage
-                      metrics={metrics}
-                      agents={agents}
-                      incidents={incidents}
-                      traces={traces}
-                      onOpenSandbox={() => {
-                        setSimulatorTargetAgentId(undefined);
-                        setIsSandboxModalOpen(true);
-                      }}
-                      onSelectAgent={handleOpenSandboxForAgent}
-                    />
-                  }
-                />
-                <Route
-                  path="/register-agent"
-                  element={<RegisterAgentPage policies={policies} onAddAgent={handleAddAgent} />}
-                />
-                <Route
-                  path="/agents"
-                  element={
-                    <AgentsPage
-                      agents={agents}
-                      policies={policies}
-                      onStatusChange={handleStatusChange}
-                      onAddAgent={handleAddAgent}
-                      onSimulate={handleOpenSandboxForAgent}
-                    />
-                  }
-                />
-                <Route path="/passport" element={<AgentPassportPage agents={agents} />} />
-                <Route path="/passport/:id" element={<AgentPassportPage agents={agents} />} />
-                <Route path="/reputation-timeline" element={<ReputationTimelinePage />} />
-                <Route path="/identity-health" element={<IdentityHealthPage />} />
-                <Route path="/wallet-binding" element={<WalletBindingPage />} />
-                <Route path="/organization-trust" element={<OrganizationTrustPage />} />
-                <Route path="/skills-profile" element={<AgentSkillProfilePage />} />
-                <Route path="/monitoring" element={<MonitoringPage traces={traces} />} />
-                <Route
-                  path="/policies"
-                  element={
-                    <PoliciesPage
-                      policies={policies}
-                      onTogglePolicy={handleTogglePolicy}
-                      onChangeMode={handleChangePolicyMode}
-                      onAddPolicy={handleAddPolicy}
-                    />
-                  }
-                />
-                <Route
-                  path="/sandbox"
-                  element={
-                    <SandboxPage
-                      agents={agents}
-                      policies={policies}
-                      onRecordTrace={handleRecordTrace}
-                    />
-                  }
-                />
-                <Route path="/audit" element={<AuditPage auditLogs={auditLogs} />} />
-                <Route
-                  path="/incidents"
-                  element={
-                    <IncidentsPage
-                      incidents={incidents}
-                      onResolveIncident={handleResolveIncident}
-                      onQuarantineAgent={(agtId) => handleStatusChange(agtId, 'Quarantined')}
-                    />
-                  }
-                />
-                <Route path="/settings" element={<SettingsPage />} />
-
-                {/* Underwriting Module */}
-                <Route path="/underwriting" element={<UnderwritingDashboard />} />
-                <Route path="/underwriting/loan-application" element={<LoanApplicationPage />} />
-
-                {/* Repayment Module */}
-                <Route path="/repayment/dashboard" element={<RepaymentDashboard />} />
-                <Route path="/repayment/wallet" element={<WalletDashboard />} />
-                <Route path="/repayment/cashflow" element={<CashFlowDashboard />} />
-                <Route path="/repayment/forecast" element={<ForecastDashboard />} />
-                <Route path="/repayment/transactions" element={<TransactionsPage />} />
-                <Route path="/repayment/revenue" element={<RevenueDashboard />} />
-                <Route path="/repayment/suggestions" element={<AISuggestionDashboard />} />
-                <Route path="/repayment/module" element={<RepaymentModule />} />
-
-                {/* Governance Module */}
-                <Route path="/governance" element={<GovernanceDashboard />} />
-                <Route path="/governance/security" element={<SecurityDashboard />} />
-                <Route path="/governance/mission-control" element={<MissionControl />} />
-                <Route path="/governance/live-monitoring" element={<LiveMonitoring />} />
-                <Route path="/governance/fraud-alerts" element={<FraudAlerts />} />
-
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
-            </Layout>
+            />
           }
-        />
+        >
+          <Route
+            index
+            element={
+              <DashboardPage
+                metrics={metrics}
+                agents={agents}
+                incidents={incidents}
+                traces={traces}
+                onOpenSandbox={() => {
+                  setSimulatorTargetAgentId(undefined);
+                  setIsSandboxModalOpen(true);
+                }}
+                onSelectAgent={handleOpenSandboxForAgent}
+              />
+            }
+          />
+          <Route
+            path="register-agent"
+            element={<RegisterAgentPage policies={policies} onAddAgent={handleAddAgent} />}
+          />
+          <Route
+            path="agents"
+            element={
+              <AgentsPage
+                agents={agents}
+                policies={policies}
+                onStatusChange={handleStatusChange}
+                onAddAgent={handleAddAgent}
+                onSimulate={handleOpenSandboxForAgent}
+              />
+            }
+          />
+          <Route path="passport" element={<AgentPassportPage agents={agents} />} />
+          <Route path="passport/:id" element={<AgentPassportPage agents={agents} />} />
+          <Route path="reputation-timeline" element={<ReputationTimelinePage />} />
+          <Route path="identity-health" element={<IdentityHealthPage />} />
+          <Route path="wallet-binding" element={<WalletBindingPage />} />
+          <Route path="organization-trust" element={<OrganizationTrustPage />} />
+          <Route path="skills-profile" element={<AgentSkillProfilePage />} />
+          <Route path="monitoring" element={<MonitoringPage traces={traces} />} />
+          <Route
+            path="policies"
+            element={
+              <PoliciesPage
+                policies={policies}
+                onTogglePolicy={handleTogglePolicy}
+                onChangeMode={handleChangePolicyMode}
+                onAddPolicy={handleAddPolicy}
+              />
+            }
+          />
+          <Route
+            path="sandbox"
+            element={
+              <SandboxPage
+                agents={agents}
+                policies={policies}
+                onRecordTrace={handleRecordTrace}
+              />
+            }
+          />
+          <Route path="audit" element={<AuditPage auditLogs={auditLogs} />} />
+          <Route
+            path="incidents"
+            element={
+              <IncidentsPage
+                incidents={incidents}
+                onResolveIncident={handleResolveIncident}
+                onQuarantineAgent={(agtId) => handleStatusChange(agtId, 'Quarantined')}
+              />
+            }
+          />
+          <Route path="settings" element={<SettingsPage />} />
+
+          {/* Underwriting Module */}
+          <Route path="underwriting" element={<UnderwritingDashboard />} />
+          <Route path="underwriting/loan-application" element={<LoanApplicationPage />} />
+
+          {/* Repayment Module */}
+          <Route path="repayment/dashboard" element={<RepaymentDashboard />} />
+          <Route path="repayment/wallet" element={<WalletDashboard />} />
+          <Route path="repayment/cashflow" element={<CashFlowDashboard />} />
+          <Route path="repayment/forecast" element={<ForecastDashboard />} />
+          <Route path="repayment/transactions" element={<TransactionsPage />} />
+          <Route path="repayment/revenue" element={<RevenueDashboard />} />
+          <Route path="repayment/suggestions" element={<AISuggestionDashboard />} />
+          <Route path="repayment/ai" element={<AISuggestionDashboard />} />
+          <Route path="repayment/module" element={<RepaymentModule />} />
+
+          {/* Governance Module */}
+          <Route path="governance" element={<GovernanceDashboard />} />
+          <Route path="governance/security" element={<SecurityDashboard />} />
+          <Route path="governance/mission-control" element={<MissionControl />} />
+          <Route path="governance/live-monitoring" element={<LiveMonitoring />} />
+          <Route path="governance/fraud-alerts" element={<FraudAlerts />} />
+
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
       </Routes>
 
       {/* Global Quick Attack Simulator Modal */}
