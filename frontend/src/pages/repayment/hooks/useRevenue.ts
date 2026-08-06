@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import axios from "axios";
+import { useCallback, useEffect, useState } from "react";
 import revenueApi from "../api/revenueApi";
 
 import type {
@@ -19,38 +20,44 @@ export function useRevenue(walletId: string) {
   const [error, setError] =
     useState("");
 
-  const fetchRevenue = async () => {
+  const fetchRevenue = useCallback(async (signal?: AbortSignal) => {
     try {
       setLoading(true);
 
       const summaryResponse =
-        await revenueApi.getRevenueSummary(walletId);
+        await revenueApi.getRevenueSummary(walletId, { signal });
 
       const entriesResponse =
-        await revenueApi.getRevenueEntries(walletId);
+        await revenueApi.getRevenueEntries(walletId, { signal });
 
-      setSummary(summaryResponse.data);
-      setEntries(entriesResponse.data);
+      setSummary(summaryResponse.data ?? null);
+      setEntries(Array.isArray(entriesResponse.data) ? entriesResponse.data : []);
       setError("");
     } catch (err) {
-      console.error(err);
-      setError("Failed to load revenue data.");
+      if (!axios.isCancel(err) && !signal?.aborted) {
+        console.error(err);
+        setError(err instanceof Error ? err.message : "Failed to load revenue data.");
+      }
     } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (walletId) {
-      fetchRevenue();
+      if (!signal?.aborted) setLoading(false);
     }
   }, [walletId]);
+
+  useEffect(() => {
+    if (!walletId) {
+      setLoading(false);
+      return;
+    }
+    const controller = new AbortController();
+    fetchRevenue(controller.signal);
+    return () => controller.abort();
+  }, [walletId, fetchRevenue]);
 
   return {
     summary,
     entries,
     loading,
     error,
-    refreshRevenue: fetchRevenue,
+    refreshRevenue: () => fetchRevenue(),
   };
 }

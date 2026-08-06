@@ -1,31 +1,34 @@
 import api from "../../../services/api";
+import type { AxiosRequestConfig } from "axios";
 import type {
-  TransactionRecord,
+  WalletTransaction,
   PaymentStatus,
   TransactionType,
-} from "../types/transaction";
+} from "../types/wallet";
 
 const transactionApi = {
-  getTransactions: (walletId: string) =>
-    api.get<TransactionRecord[]>(
-      `/wallets/${walletId}/transactions`
-    ),
+  getTransactions: (walletId: string, config?: AxiosRequestConfig) =>
+    api.get<WalletTransaction[]>(`/wallets/${walletId}/transactions`, config),
 
   getTransactionsByStatus: (
     walletId: string,
-    status: PaymentStatus
+    status: PaymentStatus,
+    config?: AxiosRequestConfig,
   ) =>
-    api.get<TransactionRecord[]>(
-      `/wallets/${walletId}/transactions?status=${status}`
-    ),
+    api.get<WalletTransaction[]>(`/wallets/${walletId}/transactions`, {
+      ...config,
+      params: { ...config?.params, status },
+    }),
 
   getTransactionsByType: (
     walletId: string,
-    type: TransactionType
+    type: TransactionType,
+    config?: AxiosRequestConfig,
   ) =>
-    api.get<TransactionRecord[]>(
-      `/wallets/${walletId}/transactions?type=${type}`
-    ),
+    api.get<WalletTransaction[]>(`/wallets/${walletId}/transactions`, {
+      ...config,
+      params: { ...config?.params, type },
+    }),
 };
 
 export default transactionApi;

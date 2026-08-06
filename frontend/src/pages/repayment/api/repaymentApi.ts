@@ -1,18 +1,19 @@
 import api from "../../../services/api";
+import type { AxiosRequestConfig } from "axios";
 import type {
   RepaymentSummary,
   RepaymentScheduleItem,
 } from "../types/repayment";
 
 export const repaymentApi = {
-  getRepaymentSummary: (walletId: string) =>
+  getRepaymentSummary: (walletId: string, config?: AxiosRequestConfig) =>
     api.get<RepaymentSummary>(
-      `/repayments/${walletId}/summary`
+      `/repayments/${walletId}/summary`, config,
     ),
 
-  getRepaymentSchedule: (walletId: string) =>
+  getRepaymentSchedule: (walletId: string, config?: AxiosRequestConfig) =>
     api.get<RepaymentScheduleItem[]>(
-      `/repayments/${walletId}/schedule`
+      `/repayments/${walletId}/schedule`, config,
     ),
 
   processRepayment: (
